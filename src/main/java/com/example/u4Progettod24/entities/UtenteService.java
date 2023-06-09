@@ -1,13 +1,10 @@
 package com.example.u4Progettod24.entities;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.u4Progettod24.entities.payloads.UtenteRegistrationPayload;
@@ -26,14 +23,9 @@ public class UtenteService {
 		return utenteRepo.save(newUtente);
 	}
 
-	public Page<Utente> find(int page, int size, String sortBy) {
-		if (size < 0)
-			size = 10;
-		if (size > 100)
-			size = 100;
-		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+	public List<Utente> find() {
 
-		return utenteRepo.findAll(pageable);
+		return utenteRepo.findAll();
 	}
 
 	public Utente findById(UUID id) throws NotFoundException {
