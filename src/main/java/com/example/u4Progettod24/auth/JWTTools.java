@@ -5,8 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.example.u4d23.exceptions.UnauthorizedException;
-import com.example.u4d23.users.User;
+import com.example.u4Progettod24.entities.Utente;
+import com.example.u4Progettod24.exceptions.UnauthorizedException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,9 +15,6 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JWTTools {
-
-	// @Value("${spring.application.jwt.secret}") non funziona se le variabili sono
-	// statiche
 	private static String secret;
 	private static int expiration;
 
@@ -31,7 +28,7 @@ public class JWTTools {
 		expiration = Integer.parseInt(expirationInDays) * 24 * 60 * 60 * 1000;
 	}
 
-	static public String createToken(User u) {
+	static public String createToken(Utente u) {
 		String token = Jwts.builder().setSubject(u.getEmail()).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
 				.signWith(Keys.hmacShaKeyFor(secret.getBytes())).compact();
@@ -51,7 +48,7 @@ public class JWTTools {
 		}
 	}
 
-	static public String extractSubject(String token) { // Nel nostro caso il subject è l'email dell'utente
+	static public String extractSubject(String token) {
 		return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parseClaimsJws(token)
 				.getBody().getSubject();
 	}

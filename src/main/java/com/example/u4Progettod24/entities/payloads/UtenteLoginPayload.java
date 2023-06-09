@@ -1,5 +1,9 @@
 package com.example.u4Progettod24.entities.payloads;
 
-public class UtenteLoginPayload {
+import lombok.Getter;
 
+@Getter
+public class UtenteLoginPayload {
+	String email;
+	String password;
 }
