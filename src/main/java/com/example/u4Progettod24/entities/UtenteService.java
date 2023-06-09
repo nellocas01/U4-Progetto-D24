@@ -19,7 +19,7 @@ public class UtenteService {
 		utenteRepo.findByEmail(u.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("Email " + user.getEmail() + " already in use!");
 		});
-		Utente newUtente = new Utente(u.getNome(), u.getCognome(), u.getEmail());
+		Utente newUtente = new Utente(u.getNome(), u.getCognome(), u.getEmail(), u.getPassword());
 		return utenteRepo.save(newUtente);
 	}
 
@@ -43,6 +43,7 @@ public class UtenteService {
 		found.setNome(u.getNome());
 		found.setCognome(u.getCognome());
 		found.setEmail(u.getEmail());
+		found.setPassword(u.getPassword());
 		// found.setUtenti(u.getUtenti());
 
 		return utenteRepo.save(found);

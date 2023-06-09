@@ -27,14 +27,16 @@ public class Utente implements UserDetails {
 	private String nome;
 	private String cognome;
 	private String email;
+	private String password;
 	@OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
 	private Set<Dispositivo> dispositivo;
 
-	public Utente(String nome, String cognome, String email) {
+	public Utente(String nome, String cognome, String email, String password) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
+		this.password = password;
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class Utente implements UserDetails {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return "password";
+		return password;
 	}
 
 	@Override
